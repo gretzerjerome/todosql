@@ -1,22 +1,23 @@
 <?php
   $errors = "";
-
   $db = mysqli_connect ('localhost', 'root','finish77', 'todo');
-
   if (isset($_POST['submit'])) {
       $task = $_POST['tasks'];
       if (empty($task)) {
          $errors = "veuillez mettre une tâche";
-
       }else {
-      mysqli_query($db, "INSERT INTO tasks (tasks) VALUES ('$task')");
+      mysqli_query($db, "INSERT INTO tasks (task) VALUES ('$task')");
       header ('location: index.php');
       }
  }
 
+  if  (isset($_GET['del_task'])) {
+      $id = $_GET['del_task'];
+      mysqli_query($db, "DELETE FROM tasks WHERE id=$id");
+
+}
+
   $tasks = mysqli_query($db, "SELECT * FROM tasks");
-
-
 ?>
 
 
@@ -55,7 +56,7 @@
                 <td><?php echo $row['ID']; ?></td>
                 <td class="task"><?php echo $row['task']; ?></td>
                 <td class="delete">
-                    <a href="#">X</a>
+                    <a href="index.php?del_task=<?php echo $row['ID']; ?>">X</a>
                 </td>
           </tr>
 
