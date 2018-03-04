@@ -1,23 +1,31 @@
 <?php
-  $errors = "";
+	$errors = ""; //<=== message d'erreur
+  //connection à MySQL
   $db = mysqli_connect ('localhost', 'root','finish77', 'todo');
+  //postage d'une tâche
   if (isset($_POST['submit'])) {
       $task = $_POST['tasks'];
+      // suite du message d'erreur
       if (empty($task)) {
-         $errors = "veuillez mettre une tâche";
+         $errors = "Veuillez mettre une tâche";
       }else {
-      mysqli_query($db, "INSERT INTO tasks (task) VALUES ('$task')");
+      mysqli_query($db, "INSERT INTO tasks (task, valeur) VALUES ('$task', '0')") ;
       header ('location: index.php');
       }
  }
 
-  if  (isset($_GET['del_task'])) {
-      $id = $_GET['del_task'];
-      mysqli_query($db, "DELETE FROM tasks WHERE id=$id");
+// pour supprimer une tâche
+  if  (isset($_GET['changement'])) {
+      $id = $_GET['changement'];
+      mysqli_query($db, "UPDATE tasks SET valeur='1' WHERE valeur='0'");
+
+      // pour delete
+      //mysqli_query($db, "DELETE FROM tasks WHERE id=$id");
 
 }
 
-  $tasks = mysqli_query($db, "SELECT * FROM tasks");
+  $tasks_false = mysqli_query($db, 'SELECT * FROM tasks WHERE valeur="0"');
+  $tasks_true = mysqli_query($db, 'SELECT * FROM tasks WHERE valeur="1"');
 ?>
 
 
@@ -33,6 +41,9 @@
     </div>
 
     <form method="POST" action="index.php">
+      <?php if (isset($errors)) { ?>
+      <p><?php echo $errors; ?></p>
+      <?php } ?>
 
 
 
@@ -44,6 +55,7 @@
     <table>
         <thead>
             <tr>
+              <h2>À faire</h2>
                 <th>N°</th>
                 <th>Tâches</th>
                 <th>Action</th>
@@ -51,12 +63,12 @@
         </thead>
 
         <tbody>
-          <?php $i = 1; while ($row = mysqli_fetch_array($tasks)) { ?>
+          <?php $i = 1; while ($row = mysqli_fetch_array($tasks_false)) { ?>
             <tr>
                 <td><?php echo $i; ?></td>
                 <td class="task"><?php echo $row['task']; ?></td>
                 <td class="delete">
-                    <a href="index.php?del_task=<?php echo $row['ID']; ?>">X</a>
+                    <a href="index.php?changement=<?php echo $row['ID']; ?>">X</a>
                 </td>
           </tr>
 
@@ -65,6 +77,28 @@
         </tbody>
 
     </table>
+
+    <table>
+
+      <thead>
+            <tr>
+              <h2>Archives</h2>
+                <th>N°</th>
+                <th>Tâches</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+          <?php $i = 1; while ($row = mysqli_fetch_array($tasks_true)) { ?>
+          <tr>
+              <td><?php echo $i; ?></td>
+              <td class="task"><?php echo $row['task']; ?></td>
+              <td class="delete">
+                  <a href="index.php?changement=<?php echo $row['ID']; ?>">X</a>
+              </td>
+        </tr>
+      <?php $i++; } ?>
 
 </body>
 </html>

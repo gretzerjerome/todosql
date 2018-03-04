@@ -1,6 +1,7 @@
 body  {
   font-size: 20px;
-  background-image:url(http://fr.gde-fon.com/download/lave_texture_kora/583986/2048x1366);
+  background-image:url(http://i0.kym-cdn.com/photos/images/newsfeed/001/003/878/f2a.gif);
+  background-position:center;
 }
 
 
@@ -8,10 +9,10 @@ body  {
   width: 50%;
   margin: 30px auto;
   text-align : center;
-  color: #6B8E23;
-  background: #FFF8DC;
-  border: 2px solid #6B8E23;
-  Border-radius: 20px;
+  color: #C60000;
+  background: #7F6A6A;
+  border: 2px solid #141648;
+  Border-radius: 26px;
 }
 
 Form {
@@ -19,8 +20,8 @@ Form {
   margin: 30px auto;
   border-radius: 5px;
   padding : 10px;
-  background : #FFF8DC;
-  border: 1px solid #6B8E23;
+  background : #7F6A6A;
+  border: 1px solid #141648;
 }
 
 form p {
@@ -34,7 +35,8 @@ form p {
   width: 73%;
   height: 15px;
   padding: 10px;
-  border: 2px solid #6B8E23
+  border: 2px solid #141648
+
 }
 .add_btn {
   height: 39px;
@@ -54,11 +56,15 @@ table {
 
 tr {
   border-bottom: 1px solid #cbcbcb;
+  border-width:1px;
+  border-style:dotted;
+  border-color:black;
+  background-color : #5F736C
 }
 
 th {
   font-size: 19px;
-  color: #6B8E23;
+  color: #000100;
 }
 
 th, td{
@@ -84,4 +90,12 @@ tr:hover {
   padding: 1px 6px;
   border-radius: 3px;
   text-decoration: none;
+  align-self: auto;
+}
+
+h2 {
+   text-align: center;
+   font-size: 50px;
+   color: #DC2C00;
+
 }
