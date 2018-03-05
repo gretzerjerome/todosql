@@ -14,13 +14,16 @@
       }
  }
 
-// pour supprimer une tâche
+// pour modifier et passer une tâche de "à faire" à "archive"
   if  (isset($_GET['changement'])) {
-      $id = $_GET['changement'];
       mysqli_query($db, "UPDATE tasks SET valeur='1' WHERE valeur='0'");
 
-      // pour delete
-      //mysqli_query($db, "DELETE FROM tasks WHERE id=$id");
+			}
+
+			// pour supprimer la tâche
+	if (isset($_GET['retourenvoyeur'])) {
+		 $id = $_GET['retourenvoyeur'];
+		 mysqli_query($db, "DELETE FROM tasks WHERE id=$id");
 
 }
 
